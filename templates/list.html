@@ -2,20 +2,18 @@
 
 {% block body %}
 
-<br><br><br><br>
- 	
-<table>
-	<tr>
-		<td> Name </td>
-		<td> First name</td>
+<br><br> 	
+<table class="w3-table">
+	<tr class="w3-ul w3-card-4">
+		<td class="w3-ul ,w3-ul w3-border "> Name </td>
+		<td class="w3-ul ,w3-ul w3-border"> First name</td>
 	</tr>
 	{%for person in contacts%}
-	<tr>
-		<td>{{person.username}}</td>
-		<td>{{person.firstname}}</td>
+	<tr style="background-color:rgba(144, 144, 144, 0.3);">
+		<td class="w3-ul ,w3-ul w3-border ">{{person.username}}</td>
+		<td class="w3-ul ,w3-ul w3-border">{{person.firstname}}</td>
 	</tr>
 	{%endfor%}
-
 </table>
 <!-- TODO: implement list page -->
 
