@@ -1,14 +1,12 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import dataset
-
 app = Flask(__name__)
 # TODO: connect your database here
 db=dataset.connect("postgres://fbeumtjfoswdzj:77858ede1315dab822e19dad2a8f5979e76c454512737d9598332c145f8ec4ed@ec2-50-19-89-124.compute-1.amazonaws.com:5432/d9kl1is1chajdc")
 
 
 @app.route('/',methods=["GET","POST"])
-@app.route('/home',methods=["GET","POST"])
-def homepage():
+def loginpage():
 		if request.method == "GET":
 			return render_template('home.html')
 		else:
@@ -18,12 +16,15 @@ def homepage():
 			contactsTable = db["Contacts"]
 
 			if len(list(contactsTable.find(username = username, password = password))) == 1:
-				return render_template('register.html')
+				return redirect('/home')
 
 			else:
+				return render_template('register.html')
 				print"YES"
-				return render_template('home.html')
 
+@app.route('/home',methods=["GET","POST"])
+def home():
+	return render_template('feed.html')
 
 @app.route('/register',methods=["POST","GET"])
 def register():
