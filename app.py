@@ -50,7 +50,11 @@ def register():
 			print"YES"
 			return render_template('home.html')
 	
-
+@app.route('/list',methods=["POST","GET"])
+def list_users():
+	contactsTable = db["Contacts"]
+	allcontacts = list(contactsTable.all())
+	return render_template('list.html' ,contacts=allcontacts)
 # TODO: route to /list
 
 # TODO: route to /feed
