@@ -7,11 +7,13 @@
 	<tr class="w3-ul w3-card-4">
 		<td class="w3-ul ,w3-ul w3-border "> Name </td>
 		<td class="w3-ul ,w3-ul w3-border"> First name</td>
+		<td class="w3-ul ,w3-ul w3-border"> Last name</td>
 	</tr>
 	{%for person in contacts%}
 	<tr style="background-color:rgba(144, 144, 144, 0.3);">
 		<td class="w3-ul ,w3-ul w3-border ">{{person.username}}</td>
 		<td class="w3-ul ,w3-ul w3-border">{{person.firstname}}</td>
+		<td class="w3-ul ,w3-ul w3-border">{{person.lastname}}</td>
 	</tr>
 	{%endfor%}
 </table>

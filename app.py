@@ -24,7 +24,7 @@ def loginpage():
 
 @app.route('/home',methods=["GET","POST"])
 def home():
-	return render_template('feed.html')
+	return redirect('/feed')
 
 @app.route('/register',methods=["POST","GET"])
 def register():
@@ -55,6 +55,40 @@ def list_users():
 	contactsTable = db["Contacts"]
 	allcontacts = list(contactsTable.all())
 	return render_template('list.html' ,contacts=allcontacts)
+
+
+@app.route('/feed',methods=["POST","GET"])
+def feed():
+	feed=db["feed"]
+	posts=list(feed.all())[::-1]
+	if request.method == "GET":
+		return render_template('feed.html',posts=posts)
+		
+	else:
+
+		form = request.form
+		post=form["post"]
+		username=form["username"]
+		contactsTable = db["Contacts"]
+		entry={"username":username,"post":post}
+		posts=list(feed.all())[::-1]
+
+		print(username)
+		print list(contactsTable.find(username=username))
+		if len(list(contactsTable.find(username = username))) >= 1:
+			feed.insert(entry)
+			return render_template('feed.html',posts=posts)
+			print entry
+		else:
+			return "error"
+			return render_template('feed.html',posts=posts)
+@app.route('/wecode')
+def wecode():
+	return render_template('wecode.html')
+
+	# contactsTable = db["Contacts"]
+	# allcontacts = list(contactsTable.all())
+	# return render_template('feed.html' ,contacts=allcontacts)	
 # TODO: route to /list
 
 # TODO: route to /feed

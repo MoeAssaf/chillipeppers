@@ -1,6 +1,65 @@
 {% extends "index.html" %}
 {% block body %}
+<br><br>
+<div class="w3-container" style="background-color:lightgrey;height:100%;width:26%;">
+<form action="/feed"method="POST">
+ <br>
+  <div class="w3-card-4" style="width:100%">
+    <div class="w3-container w3-red" style="background-color:#ff3434;">
+      <h2>Post</h2>
+    </div>
 
+    <form class="w3-container">
+      <p>
+      <input class="w3-input" type="text" placeholder="Username" name="username"required >
+      <p>     
+      <input class="w3-input" type="text" placeholder="What's on your mind?" name="post"required>
+      <br> <br>
+          <button class="w3-button w3-red w3-section w3-right" type="submit">Post</button>
+    </form>
+  </div>
+</div>
+</div>
+
+{%for person in posts%}
+<div class="w3-card-4 ,w3-margin-bottom" style="width:30%;margin-left:30%;">
+    <header class="w3-container w3-red">
+      <h3>{{person.username}}</h2>
+    </header>
+
+    <div class="w3-container">
+      <p>{{person.post}}</p>
+    </div>
+</div>
+<br>
+<br>
+
+
+      
+
+<!-- <table class="w3-table">
+<tr>
+	<td class="w3-ul ,w3-ul w3-border ">{{person.username}}</td>
+</tr>
+<tr>
+	<td class="w3-ul ,w3-ul w3-border ">{{person.post}}</td>
+</tr>
+</table>
+<br> -->
+{%endfor%}
+ <!-- <br><br> 	
+<table class="w3-table">
+	<tr class="w3-ul w3-card-4">
+		<td class="w3-ul ,w3-ul w3-border "> User name </td>
+		<td class="w3-ul ,w3-ul w3-border"> Post</td>
+	</tr>
+	{%for person in contacts%}
+	<tr style="background-color:rgba(144, 144, 144, 0.3);">
+		<td class="w3-ul ,w3-ul w3-border ">{{person.username}}</td>
+		<td class="w3-ul ,w3-ul w3-border">{{person.post}}</td>
+	</tr>
+	{%endfor%}
+</table>
 
 <!-- TODO: implement feed page -->
 
