@@ -1,11 +1,18 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import dataset
+import os
+
 app = Flask(__name__)
 # TODO: connect your database here
 db=dataset.connect("postgres://fbeumtjfoswdzj:77858ede1315dab822e19dad2a8f5979e76c454512737d9598332c145f8ec4ed@ec2-50-19-89-124.compute-1.amazonaws.com:5432/d9kl1is1chajdc")
-
+app.secret_key=os.urandom(24)
+@app.route('/logout')
+def logout():
+	session.pop("username",None)
+	return redirect('/login')
 
 @app.route('/',methods=["GET","POST"])
+@app.route('/login',methods=["GET","POST"])
 def loginpage():
 		if request.method == "GET":
 			return render_template('home.html')
@@ -14,12 +21,13 @@ def loginpage():
 			username= form["username"]
 			password= form["Password"]
 			contactsTable = db["Contacts"]
+			session["username"] = username
 
 			if len(list(contactsTable.find(username = username, password = password))) == 1:
-				return redirect('/home')
+				return redirect('/feed')
 
 			else:
-				return render_template('register.html')
+				return redirect('/login')
 				print"YES"
 
 @app.route('/home',methods=["GET","POST"])
@@ -28,6 +36,7 @@ def home():
 
 @app.route('/register',methods=["POST","GET"])
 def register():
+
 	if request.method == "GET":
 		return render_template('register.html')
 	else:
@@ -59,29 +68,33 @@ def list_users():
 
 @app.route('/feed',methods=["POST","GET"])
 def feed():
-	feed=db["feed"]
-	posts=list(feed.all())[::-1]
-	if request.method == "GET":
-		return render_template('feed.html',posts=posts)
-		
-	else:
-
-		form = request.form
-		post=form["post"]
-		username=form["username"]
-		contactsTable = db["Contacts"]
-		entry={"username":username,"post":post}
+	# session["username"] = username
+	if "username" in session: 
+		feed=db["feed"]
 		posts=list(feed.all())[::-1]
-
-		print(username)
-		print list(contactsTable.find(username=username))
-		if len(list(contactsTable.find(username = username))) >= 1:
-			feed.insert(entry)
-			return render_template('feed.html',posts=posts)
-			print entry
+		c_user = session["username"]
+		if request.method == "GET":
+			return render_template('feed.html',posts=posts,c_user=c_user)
+			
 		else:
-			return "error"
-			return render_template('feed.html',posts=posts)
+
+			form = request.form
+			post=form["post"]
+			contactsTable = db["Contacts"]
+			entry={"username":c_user,"post":post}
+			posts=list(feed.all())[::-1]
+
+			# print(username)
+			# print list(contactsTable.find(username=username))
+			# if len(list(contactsTable.find(username = username))) >= 1:
+			# 	feed.insert(entry)
+			return render_template('feed.html',posts=posts,c_user=c_user)
+			print entry
+			# else:
+			# 	return "error"
+			# 	return render_template('feed.html',posts=posts,c_user=c_user)
+	else:
+		return redirect('/login')
 @app.route('/wecode')
 def wecode():
 	return render_template('wecode.html')
