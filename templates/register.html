@@ -5,7 +5,13 @@
 <link rel="stylesheet" href="../static/css/style1.css">
   <title>ChilliPeppers</title> 
 <body style ="background-color: black;">
-	
+{% if error == True %}
+<div class="w3-panel w3-red" style="margin:0%">
+    <h5>Username is taken!</h5>
+    <p>Try using a different username</p>
+  </div>
+
+{% endif %}
 
           <div class="w3-row-padding w3-red w3-round-xlarge" style="margin:2% 20% 9% 19%;padding:5%;">
         <form action='/register' method="POST">

@@ -57,13 +57,17 @@ def register():
 		contactsTable = db["Contacts"]
 		entry = {"email":email, "password":password, "firstname":firstname, "lastname":lastname, "username":username, "country":country,"gender":gender,"personalwebsite":personalwebsite}
 		#students names to check
-		if len(list(contactsTable.find(username = username))) == 0:
-			contactsTable.insert(entry)
-			print list(contactsTable.all())
-			return redirect('/login')
+		if len(list(contactsTable.find(username = username))) >= 1:
+			session["error"]= True
+			error = session["error"]			
+			print"YES"
+			return render_template('/register.html',error=error)
 
 		else:
-			print"YES"
+			contactsTable.insert(entry)
+			print list(contactsTable.all())
+			# session["error"]= True
+			# error = session["error"]
 			return redirect('/login')
 #THIS IS THE LIST PAGE
 @app.route('/list',methods=["POST","GET"])
