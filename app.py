@@ -15,6 +15,7 @@ def logout():
 #THIS IS THE LOGIN PAGE
 def loginpage():
 		if request.method == "GET":
+			session.pop("error" , None)
 			return render_template('home.html')
 		else:
 			#FORM 
@@ -28,8 +29,10 @@ def loginpage():
 				return redirect('/feed')
 
 			else:
-				return redirect('/login')
+				session["error"]= True
+				error = session["error"]
 				print"YES"
+				return render_template('home.html',error=error)
 #THIS IS THE WeCODE PAGE
 @app.route('/home',methods=["GET","POST"])
 def home():

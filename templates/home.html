@@ -18,9 +18,18 @@
 	margin-top: 240px;
 }
 </style>
-<img src="../static/images/chilli.png" style="margin-top:-150px;width:120px;height:100px;position:absolute;margin-left:43%">
+{% if error == True %}
+<div class="w3-panel w3-red" style="margin:0%">
+    <h5>Check fields!</h5>
+    <p>Either password or username is wrong, make sure that your username is registered.</p>
+  </div>
 
-      <div class="w3-row-padding" style="margin:20% 40% 30% 36%">
+{% endif %}
+<div class="w3-row-padding" style="margin:10% 0% 0% 42.5%;height:20%;">
+<img src="../static/images/chilli.png" style="width:120px;height:100px;margin:0%">
+</div>
+
+      <div class="w3-row-padding" style="margin:3% 40% 30% 36%">
         <form action="/" method="POST">
               <input class="w3-input w3-border" type="username" placeholder="Username" name="username">
             <br>
