@@ -69,7 +69,7 @@ def register():
 @app.route('/list',methods=["POST","GET"])
 def list_users():
 	contactsTable = db["Contacts"]
-	allcontacts = list(contactsTable.all())
+	allcontacts = list(contactsTable.all())[::-1]
 	return render_template('list.html' ,contacts=allcontacts)
 
 #THIS IS THE FEED PAGE 
