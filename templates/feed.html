@@ -1,7 +1,7 @@
 {% extends "index.html" %}
 {% block body %}
 <br><br>
-<div class="w3-container" style="background-color:white;height:100%;width:26%;margin-left:30%">
+<div class="w3-container" style="background-color:white;height:100%;width:26%;margin-left:35%">
 <form action="/feed"method="POST">
  <br>
   <div class="w3-card-4" style="width:100%">
@@ -23,7 +23,7 @@
   <hr>
   <br>
 {%for person in posts%}
-<div class="w3-card-4 ,w3-margin-bottom" style="width:26%;margin-left:30%;">
+<div class="w3-card-4 ,w3-margin-bottom" style="width:26%;margin-left:35%;">
     <header class="w3-container w3-red">
       <h3>{{person.username}}</h2>
     </header>
