@@ -7,8 +7,8 @@
 <body style ="background-color: black;">
 	
 
+          <div class="w3-row-padding w3-red w3-round-xlarge" style="margin:2% 20% 9% 19%;padding:5%;">
         <form action='/register' method="POST">
-          <div class="w3-row-padding" style="margin:5% 8% 16% 30%">
 
 
             <div class="w3-half">
@@ -43,6 +43,18 @@
               <input class="w3-input w3-border" type="country" placeholder="Country" name="Country"required>
             </div>
 <br> <br>
+            <div class="w3-half">
+              <input class="w3-input w3-border" type="link" placeholder="Personal website link" name="personalwebsite"required>
+            </div>
+            <br>
+            <br>
+            <div class="w3-half">
+            <input type="radio" name="gender" value="male" checked> Male<br>
+            <input type="radio" name="gender" value="female"> Female<br>
+            <input type="radio" name="gender" value="other"> Other
+          </div>
+          <br>
+          <br>
           <button class="w3-button w3-white w3-section w3-right" type="submit">Submit</button>
         </form>
 </body>

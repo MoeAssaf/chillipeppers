@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import dataset
 import os
-
+from time import *
 app = Flask(__name__)
 # TODO: connect your database here
 db=dataset.connect("postgres://fbeumtjfoswdzj:77858ede1315dab822e19dad2a8f5979e76c454512737d9598332c145f8ec4ed@ec2-50-19-89-124.compute-1.amazonaws.com:5432/d9kl1is1chajdc")
@@ -50,8 +50,10 @@ def register():
 		lastname = form["Last name"]
 		username = form["User name"]
 		country = form["Country"]
+		gender=form["gender"]
+		personalwebsite= form["personalwebsite"]
 		contactsTable = db["Contacts"]
-		entry = {"email":email, "password":password, "firstname":firstname, "lastname":lastname, "username":username, "country":country}
+		entry = {"email":email, "password":password, "firstname":firstname, "lastname":lastname, "username":username, "country":country,"gender":gender,"personalwebsite":personalwebsite}
 		#students names to check
 		if len(list(contactsTable.find(username = username))) == 0:
 			contactsTable.insert(entry)
@@ -84,7 +86,8 @@ def feed():
 			form = request.form
 			post=form["post"]
 			contactsTable = db["Contacts"]
-			entry={"username":c_user,"post":post}
+			time = strftime("%Y-%m-%d %H:%M:%S",localtime())
+			entry={"username":c_user,"post":post,"time":time}
 			posts=list(feed.all())[::-1]
 
 			print(c_user)
