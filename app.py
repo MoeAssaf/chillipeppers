@@ -13,15 +13,17 @@ def logout():
 
 @app.route('/',methods=["GET","POST"])
 @app.route('/login',methods=["GET","POST"])
+#THIS IS THE LOGIN PAGE
 def loginpage():
 		if request.method == "GET":
 			return render_template('home.html')
 		else:
+			#FORM 
 			form = request.form
 			username= form["username"]
 			password= form["Password"]
 			contactsTable = db["Contacts"]
-
+				#CHECK USERNAME AND PASSWORD
 			if len(list(contactsTable.find(username = username, password = password))) == 1:
 				session["username"] = username
 				return redirect('/feed')
@@ -29,17 +31,18 @@ def loginpage():
 			else:
 				return redirect('/login')
 				print"YES"
-
+#THIS IS THE WeCODE PAGE
 @app.route('/home',methods=["GET","POST"])
 def home():
-	return redirect('/feed')
-
+	return redirect('/wecode')
+#THIS IS THE REGISTER PAGE 
 @app.route('/register',methods=["POST","GET"])
 def register():
 
 	if request.method == "GET":
 		return render_template('register.html')
 	else:
+		#FORM
 		form = request.form
 		email= form["email"]
 		password= form["Password"]
@@ -58,14 +61,14 @@ def register():
 		else:
 			print"YES"
 			return render_template('home.html')
-	
+#THIS IS THE LIST PAGE
 @app.route('/list',methods=["POST","GET"])
 def list_users():
 	contactsTable = db["Contacts"]
 	allcontacts = list(contactsTable.all())
 	return render_template('list.html' ,contacts=allcontacts)
 
-
+#THIS IS THE FEED PAGE 
 @app.route('/feed',methods=["POST","GET"])
 def feed():
 	# session["username"] = username
@@ -98,6 +101,7 @@ def feed():
 			# 	return render_template('feed.html',posts=posts,c_user=c_user)
 	else:
 		return redirect('/login')
+#THIS IS THE WECODE PAGE
 @app.route('/wecode')
 def wecode():
 	return render_template('wecode.html')
