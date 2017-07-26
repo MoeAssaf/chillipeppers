@@ -21,9 +21,9 @@ def loginpage():
 			username= form["username"]
 			password= form["Password"]
 			contactsTable = db["Contacts"]
-			session["username"] = username
 
 			if len(list(contactsTable.find(username = username, password = password))) == 1:
+				session["username"] = username
 				return redirect('/feed')
 
 			else:
@@ -84,12 +84,14 @@ def feed():
 			entry={"username":c_user,"post":post}
 			posts=list(feed.all())[::-1]
 
-			# print(username)
-			# print list(contactsTable.find(username=username))
-			# if len(list(contactsTable.find(username = username))) >= 1:
-			# 	feed.insert(entry)
-			return render_template('feed.html',posts=posts,c_user=c_user)
-			print entry
+			print(c_user)
+			print list(contactsTable.find(username=c_user))
+			if len(list(contactsTable.find(username = c_user))) >= 1:
+				feed.insert(entry)
+				return render_template('feed.html',posts=posts,c_user=c_user)
+				print entry
+			else:
+				return redirect('/login')
 			# else:
 			# 	return "error"
 			# 	return render_template('feed.html',posts=posts,c_user=c_user)
