@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import dataset
-import os
 from time import *
 app = Flask(__name__)
 # TODO: connect your database here
@@ -58,11 +57,11 @@ def register():
 		if len(list(contactsTable.find(username = username))) == 0:
 			contactsTable.insert(entry)
 			print list(contactsTable.all())
-			return render_template('home.html')
+			return redirect('/login')
 
 		else:
 			print"YES"
-			return render_template('home.html')
+			return redirect('/login')
 #THIS IS THE LIST PAGE
 @app.route('/list',methods=["POST","GET"])
 def list_users():
